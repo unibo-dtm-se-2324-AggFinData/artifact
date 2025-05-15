@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - AggFin</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+<body >
+
+    <!-- Header -->
+    <header class="navbar">
+        <div class="container">
+            <a href="{{ url_for('main.home') }}" class="brand">
+                <div class="logo-container">
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="AggFin Logo" class="logo">
+                </div>                
+                AggFin
+            </a>
+            <nav class="nav-links">
+                <a href="{{ url_for('main.home') }}">Home</a>
+                <a href="{{ url_for('main.about') }}">About</a>
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('auth.logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('users.login') }}">Login</a>
+                    <a href="{{ url_for('users.register') }}">Sign Up</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    
+    
+
+    <!-- Main Content -->
+    <main class="container">
+        <h1 class="text-center mb-4">Welcome to AggFin</h1>
+        
+        <!-- Form for Stock Search and Background Color -->
+        <form method="POST" action="{{ url_for('main.home') }}" class="mb-5 p-4 border rounded bg-white shadow-sm">
+            <div class="mb-3">
+                <label for="stock_name" class="form-label">Enter Stock Symbol:</label>
+                <input type="text" id="stock_name" name="stock_name" class="form-control" placeholder="e.g., AAPL" required>
+            </div>
+            <p class="mb-1">Choose Background Color:</p>
+            <div class="d-flex">
+                <div class="form-check me-3">
+                    <input type="radio" class="form-check-input" name="bg_color" value="white" checked onchange="changeBgColor(this)">
+                    <label class="form-check-label">White</label>
+                </div>
+                <div class="form-check me-3">
+                    <input type="radio" class="form-check-input" name="bg_color" value="lightgray" onchange="changeBgColor(this)">
+                    <label class="form-check-label">Light Gray</label>
+                </div>
+                <div class="form-check me-3">
+                    <input type="radio" class="form-check-input" name="bg_color" value="lightblue" onchange="changeBgColor(this)">
+                    <label class="form-check-label">Light Blue</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="bg_color" value="lightgreen" onchange="changeBgColor(this)">
+                    <label class="form-check-label">Light Green</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Search</button>
+        </form>
+
+        <!-- Stock Information Section -->
+        {% if stock_info %}
+        <section class="mb-5 p-4 border rounded bg-white shadow-sm">
+            <h2>Stock Information: {{ stock_info['symbol'] }}</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Company Name:</strong> {{ stock_info['longName'] }}</p>
+                    <p><strong>Market Cap:</strong> {{ stock_info['marketCap'] | format_thousands }}</p>
+                    <p><strong>Sector:</strong> {{ stock_info['sector'] }}</p>
+                    <p><strong>Industry:</strong> {{ stock_info['industry'] }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Country:</strong> {{ stock_info['country'] }}</p>
+                    <p><strong>52-Week High:</strong> {{ stock_info['fiftyTwoWeekHigh'] | format_thousands }}</p>
+                    <p><strong>52-Week Low:</strong> {{ stock_info['fiftyTwoWeekLow'] | format_thousands }}</p>
+                    <p><strong>Website:</strong> <a href="{{ stock_info['website'] }}" target="_blank">{{ stock_info['website'] }}</a></p>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Stock News Section -->
+        {% if news %}
+        <section class="mb-5 p-4 border rounded bg-white shadow-sm">
+            <h2>Latest News</h2>
+            <ul class="list-group list-group-flush">
+                {% for article in news %}
+                    <li class="list-group-item">
+                        <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+                        <p>{{ article.description }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+
+        <!-- Most Visited Stocks Section -->
+
+        <section class="mb-5">
+            <h2>Stocks in Focus</h2>
+            
+            <div class="row g-4">
+                {% for stock in most_visited_stocks %}
+                <div class="col-6 col-md-4 col-lg-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title">{{ stock.ticker }}</h5>
+                        <p class="card-text">{{ stock.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+         </div>
+        </section>
+
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 AggFin. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
