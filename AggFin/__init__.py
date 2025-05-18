@@ -1,10 +1,10 @@
 from flask import Flask
-from AggFin.routes import main
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
 from flask_migrate import Migrate
+from .auth import auth as users_blueprint
 
 
 db = SQLAlchemy()
@@ -14,11 +14,9 @@ login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 
-
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'MohJJAMhsi58ubsc9a6xas4adwdnsaxaxSS'
-    
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # Example for SQLite
 
     db.init_app(app)
@@ -26,15 +24,13 @@ def create_app():
     bcrypt.init_app(app)
     login_manager.init_app(app)
 
-    
+    from AggFin.users.routes import users
     from AggFin.main.routes import main
 
-    
+    app.register_blueprint(users)
     app.register_blueprint(main)
      
     app.register_blueprint(users_blueprint)
-
-
     
 
     return app
