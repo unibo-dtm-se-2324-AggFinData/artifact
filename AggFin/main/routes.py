@@ -1,24 +1,12 @@
 import requests
 from flask import Blueprint, render_template, request
-<<<<<<< HEAD
-
-=======
 import yfinance as yf
 import random
 from AggFin.config import Config
->>>>>>> login-register-pages
 
 main = Blueprint('main', __name__)
 
 
-<<<<<<< HEAD
-# Home route displaying stock info 
-@main.route("/", methods=['GET', 'POST'])
-@main.route("/home", methods=['GET', 'POST'])
-def home():
-
-    bg_color = 'white'  
-=======
 # Define the custom filter
 def format_thousands(value):
     """Format a number with commas as thousands separators."""
@@ -56,14 +44,10 @@ def home():
     stock_info = None
     news = None
     bg_color = 'white'  # Default background color
->>>>>>> login-register-pages
 
     if request.method == 'POST':
         stock_name = request.form.get('stock_name')
         bg_color = request.form.get('bg_color', 'white')  
-<<<<<<< HEAD
-        
-=======
         stock_info = yf.Ticker(stock_name).info  
         news = get_news(stock_name)  
 
@@ -81,4 +65,3 @@ def about():
 # @main.route('/cause-error')
 # def cause_error():
 #     raise Exception("This is a test exception to trigger a 500 error.")
->>>>>>> login-register-pages

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user
-from portfolio import db, bcrypt
-from portfolio.models import User  # Assuming your User model is in models.py
+from AggFin import db, bcrypt
+from AggFin.models import User 
 from sqlalchemy.exc import IntegrityError
 
 users = Blueprint('users', __name__)

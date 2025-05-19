@@ -4,11 +4,8 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
 from flask_migrate import Migrate
-<<<<<<< HEAD
 from AggFin.routes import main
-=======
 from .auth import auth as users_blueprint
->>>>>>> login-register-pages
 
 
 db = SQLAlchemy()
@@ -18,10 +15,6 @@ login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 
-<<<<<<< HEAD
-
-=======
->>>>>>> login-register-pages
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'MohJJAMhsi58ubsc9a6xas4adwdnsaxaxSS'
@@ -31,25 +24,17 @@ def create_app():
     migrate.init_app(app, db)
     bcrypt.init_app(app)
     login_manager.init_app(app)
-<<<<<<< HEAD
     # make sure 
     from AggFin.users.forms import users
    
-=======
 
     from AggFin.users.routes import users
     from AggFin.main.routes import main
->>>>>>> login-register-pages
 
     app.register_blueprint(users)
     app.register_blueprint(main)
      
     app.register_blueprint(users_blueprint)
-<<<<<<< HEAD
-
-
-=======
->>>>>>> login-register-pages
     
 
     return app

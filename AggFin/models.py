@@ -1,9 +1,5 @@
 from datetime import datetime
-<<<<<<< HEAD
-from portfolio import db, login_manager
-=======
 from AggFin import db, login_manager
->>>>>>> login-register-pages
 from flask_login import UserMixin
 
 @login_manager.user_loader
