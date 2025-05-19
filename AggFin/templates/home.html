@@ -36,7 +36,11 @@
 
     <!-- Main Content -->
     <main class="container">
+<<<<<<< HEAD
         <h1 class="text-center mb-4" aria-label="Welcome to AggFin">Welcome to AggFin</h1>
+=======
+        <h1 class="text-center mb-4">Welcome to AggFin</h1>
+>>>>>>> login-register-pages
         
         <!-- Form for Stock Search and Background Color -->
         <form method="POST" action="{{ url_for('main.home') }}" class="mb-5 p-4 border rounded bg-white shadow-sm">
@@ -66,7 +70,66 @@
             <button type="submit" class="btn btn-primary mt-3">Search</button>
         </form>
 
+<<<<<<< HEAD
        
+=======
+        <!-- Stock Information Section -->
+        {% if stock_info %}
+        <section class="mb-5 p-4 border rounded bg-white shadow-sm">
+            <h2>Stock Information: {{ stock_info['symbol'] }}</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Company Name:</strong> {{ stock_info['longName'] }}</p>
+                    <p><strong>Market Cap:</strong> {{ stock_info['marketCap'] | format_thousands }}</p>
+                    <p><strong>Sector:</strong> {{ stock_info['sector'] }}</p>
+                    <p><strong>Industry:</strong> {{ stock_info['industry'] }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Country:</strong> {{ stock_info['country'] }}</p>
+                    <p><strong>52-Week High:</strong> {{ stock_info['fiftyTwoWeekHigh'] | format_thousands }}</p>
+                    <p><strong>52-Week Low:</strong> {{ stock_info['fiftyTwoWeekLow'] | format_thousands }}</p>
+                    <p><strong>Website:</strong> <a href="{{ stock_info['website'] }}" target="_blank">{{ stock_info['website'] }}</a></p>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Stock News Section -->
+        {% if news %}
+        <section class="mb-5 p-4 border rounded bg-white shadow-sm">
+            <h2>Latest News</h2>
+            <ul class="list-group list-group-flush">
+                {% for article in news %}
+                    <li class="list-group-item">
+                        <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+                        <p>{{ article.description }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+
+        <!-- Most Visited Stocks Section -->
+
+        <section class="mb-5">
+            <h2>Stocks in Focus</h2>
+            
+            <div class="row g-4">
+                {% for stock in most_visited_stocks %}
+                <div class="col-6 col-md-4 col-lg-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title">{{ stock.ticker }}</h5>
+                        <p class="card-text">{{ stock.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+         </div>
+        </section>
+
+
+>>>>>>> login-register-pages
     </main>
 
     <!-- Footer -->
