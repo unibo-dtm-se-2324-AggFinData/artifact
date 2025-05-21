@@ -168,7 +168,6 @@
     padding: 2rem;
   }
   
-<<<<<<< HEAD
   .search-section {
     text-align: center;
     margin-bottom: 2rem;
@@ -180,8 +179,6 @@
     width: 300px;
   }
   
-=======
->>>>>>> login-register-pages
   .color-options {
     margin: 1rem 0;
   }
@@ -190,7 +187,6 @@
     margin-right: 1rem;
   }
   
-<<<<<<< HEAD
   .search-section button {
     padding: 0.5rem 1rem;
     background-color: #007BFF;
@@ -342,9 +338,12 @@ input[type="password"]:focus {
 .btn:hover {
   background-color: #0056b3;
 }
+
+#suggestions {
+  max-height: 150px;
+  overflow-y: auto;
+}
   
-=======
->>>>>>> login-register-pages
   
   /* Footer styling */
   
