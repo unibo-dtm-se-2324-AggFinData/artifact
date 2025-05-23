@@ -2,11 +2,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-
+from AggFin.errors.handlers import register_error_handlers  
 from flask_migrate import Migrate
 from AggFin.routes import main
 from .auth import auth as users_blueprint
-
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -27,7 +26,6 @@ def create_app():
     # make sure 
     from AggFin.users.forms import users
    
-
     from AggFin.users.routes import users
     from AggFin.main.routes import main
 
@@ -36,5 +34,5 @@ def create_app():
      
     app.register_blueprint(users_blueprint)
     
-
+    register_error_handlers(app)
     return app
