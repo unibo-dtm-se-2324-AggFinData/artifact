@@ -42,7 +42,11 @@
         <form method="POST" action="{{ url_for('main.home') }}" class="mb-5 p-4 border rounded bg-white shadow-sm">
             <div class="mb-3">
                 <label for="stock_name" class="form-label">Enter Stock Symbol:</label>
-                <input type="text" id="stock_name" name="stock_name" class="form-control" placeholder="e.g., AAPL" required>
+                <input type="text" id="stock_name" name="stock_name" class="form-control" placeholder="e.g., AAPL" autocomplete="off" required>
+                <div id="suggestions" class="list-group position-absolute w-100"></div>
+                <div class="position-relative" style="z-index: 1000;">
+                    <!-- the input and suggestions block go here -->
+                </div>
             </div>
             <p class="mb-1">Choose Background Color:</p>
             <div class="d-flex">

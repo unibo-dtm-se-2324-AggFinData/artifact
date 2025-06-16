@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request
 import yfinance as yf
 import random
 from AggFin.config import Config
+from flask import jsonify
 
 main = Blueprint('main', __name__)
 
@@ -60,8 +61,15 @@ def home():
 def about():
     return render_template('about.html')
 
+@main.route('/suggest')
+def suggest():
+    query = request.args.get('q', '').upper()
+    matches = [stock for stock in STOCK_OPTIONS if stock['ticker'].startswith(query)]
+    return jsonify(matches[:4])  # limit to 4 suggestions
 
-# Uncomment the following route to test 500 error
-# @main.route('/cause-error')
-# def cause_error():
-#     raise Exception("This is a test exception to trigger a 500 error.")
+
+
+
+@main.route('/cause-error')
+def cause_error():
+     raise Exception("This is a test exception to trigger a 500 error.")
