@@ -1,5 +1,5 @@
 import requests
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, jsonify, current_app
 import yfinance as yf
 import random
 from AggFin.config import Config
@@ -45,12 +45,14 @@ def home():
     stock_info = None
     news = None
     bg_color = 'white'  # Default background color
+    version = current_app.config['VERSION']
 
     if request.method == 'POST':
         stock_name = request.form.get('stock_name')
         bg_color = request.form.get('bg_color', 'white')  
         stock_info = yf.Ticker(stock_name).info  
         news = get_news(stock_name)  
+        version=version
 
     # Randomly select 5 stocks from the larger list
     most_visited_stocks = random.sample(STOCK_OPTIONS, 5)
@@ -61,7 +63,7 @@ def home():
 def about():
     return render_template('about.html')
 
-@main.route('/suggest')
+@main.route('/api/v1/suggest')
 def suggest():
     query = request.args.get('q', '').upper()
     matches = [stock for stock in STOCK_OPTIONS if stock['ticker'].startswith(query)]
