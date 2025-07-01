@@ -7,3 +7,6 @@ run:
 
 test:
 	PYTHONPATH=. "C:/Users/Jam/AppData/Local/Programs/Python/Python310/python.exe" -m pytest
+
+check:
+	"C:/Users/Jam/AppData/Local/Programs/Python/Python310/python.exe" -m py_compile run.py
