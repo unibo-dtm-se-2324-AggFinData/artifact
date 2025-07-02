@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="aggfindata",
-    version="0.1.0",
+    version="1.0.1",
     description="A Flask application for aggregating stock data and financial news",
     author="Your Name",
     author_email="your.email@example.com",
